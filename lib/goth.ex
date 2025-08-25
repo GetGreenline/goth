@@ -253,9 +253,7 @@ defmodule Goth do
   end
 
   defp handle_retry(exception, state) do
-    # state.handle_retry_callback.(exception, state)
-    IO.inspect(exception)
-    IO.inspect(state)
+    state.handle_retry_callback.(exception, state)
 
     state = %{state | retries: state.retries + 1}
     time_in_milliseconds = state.retry_delay.(state.retries)
