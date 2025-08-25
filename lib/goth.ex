@@ -253,7 +253,7 @@ defmodule Goth do
   end
 
   defp handle_retry(exception, state) do
-    state.handle_retry_callback(exception, state)
+    state.handle_retry_callback.(exception, state)
 
     state = %{state | retries: state.retries + 1}
     time_in_milliseconds = state.retry_delay.(state.retries)
@@ -280,7 +280,7 @@ defmodule Goth do
     min(30, round(:math.pow(2, retry_count))) * 1000
   end
 
-  def handle_retry_callback(exception, state), do: :ok
+  defp handle_retry_callback(_exception, _state), do: :ok
 
   defp put(name, token) do
     Registry.update_value(@registry, name, fn _ -> token end)
