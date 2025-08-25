@@ -175,7 +175,6 @@ defmodule Goth do
     {prefetch, opts} = Keyword.pop(opts, :prefetch, :async)
 
     state = struct!(__MODULE__, opts)
-    |> IO.inspect()
     state = Map.update!(state, :http_client, &start_http_client/1)
 
     case prefetch do
@@ -254,7 +253,9 @@ defmodule Goth do
   end
 
   defp handle_retry(exception, state) do
-    state.handle_retry_callback.(exception, state)
+    # state.handle_retry_callback.(exception, state)
+    IO.inspect(exception)
+    IO.inspect(state)
 
     state = %{state | retries: state.retries + 1}
     time_in_milliseconds = state.retry_delay.(state.retries)
