@@ -175,6 +175,7 @@ defmodule Goth do
     {prefetch, opts} = Keyword.pop(opts, :prefetch, :async)
 
     state = struct!(__MODULE__, opts)
+    |> IO.inspect()
     state = Map.update!(state, :http_client, &start_http_client/1)
 
     case prefetch do
